@@ -4,8 +4,8 @@ const client = axios.create({
 	baseURL: "https://dev-curator.onrender.com/api/",
 });
 
-export const getPieces = (searchTerm: string) => {
-	return client.get(`pieces/${searchTerm}`).then((response) => {
+export const getPieces = (searchTerm: string, page: number) => {
+	return client.get(`pieces/${searchTerm}?page=${page}`).then((response) => {
 		return response.data;
 	});
 };

@@ -11,7 +11,6 @@ export const SearchBar = () => {
 
 	const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
-		console.log(currentSearch);
 		navigate(`/browse-pieces?search=${currentSearch}`)
 	};
 	return (
