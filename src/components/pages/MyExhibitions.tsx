@@ -21,7 +21,7 @@ export const MyExhibitions = () => {
 			<h1>My Exhibitions</h1>
 			{myExhibitions
 				? myExhibitions.map((singleExhibition: Exhibition) => {
-						return <ExhibitionCard exhibition={singleExhibition} />;
+						return <ExhibitionCard exhibition={singleExhibition} key={singleExhibition.exhibition_id}/>;
 				  })
 				: null}
 		</div>

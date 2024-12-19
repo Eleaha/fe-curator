@@ -10,6 +10,7 @@ export const ExhibitionPieceCard = (exhibitionPieceData: any) => {
 	const pieceId: string = exhibitionPiece.piece_id;
 
 	useEffect(() => {
+		console.log(piece?.piece_id)
 		getPiece(+institutionId, pieceId).then(({ piece }) => {
 			setPiece(piece);
 		});

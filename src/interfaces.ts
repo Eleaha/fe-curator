@@ -32,3 +32,11 @@ export interface Piece {
 	material?: string | undefined;
 	description?: string | undefined;
 }
+
+export interface ExhibitionPiecePayload {
+	institution_id: number;
+	piece_id: string;
+	piece_index?: number;
+	img_url: string;
+	note?: string;
+}

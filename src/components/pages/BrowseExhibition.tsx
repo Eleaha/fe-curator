@@ -15,8 +15,8 @@ export const BrowseExhibitions = () => {
 	return (
 		<div className="page" id="home-page">
 			<h1>Browse Exhibitions</h1>
-			{exhibitions.map((singleExhibition: Exhibition) => {
-				return <ExhibitionCard exhibition={singleExhibition} />;
+			{exhibitions.map((exhibition: Exhibition) => {
+				return <ExhibitionCard exhibition={exhibition} key={exhibition.exhibition_id}/>;
 			})}
 		</div>
 	);

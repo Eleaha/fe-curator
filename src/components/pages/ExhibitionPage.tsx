@@ -31,7 +31,7 @@ export const ExhibitionPage = () => {
 					<h1>{exhibition.title}</h1>
 					<p>{exhibition.description}</p>
 					{exhibition.pieces!.map((exhibitionPiece) => {
-						return <ExhibitionPieceCard exhibitionPiece={exhibitionPiece}/>;
+						return <ExhibitionPieceCard exhibitionPiece={exhibitionPiece} key={exhibitionPiece.id}/>;
 					})}
 				</div>
 			) : null}
