@@ -5,12 +5,12 @@ import { Link } from "react-router-dom";
 
 export const ExhibitionPieceCard = (exhibitionPieceData: any) => {
 	const [piece, setPiece] = useState<Piece | undefined>(undefined);
+	
 	const { exhibitionPiece } = exhibitionPieceData;
 	const institutionId: number = exhibitionPiece.institution_id;
 	const pieceId: string = exhibitionPiece.piece_id;
 
 	useEffect(() => {
-		console.log(piece?.piece_id)
 		getPiece(+institutionId, pieceId).then(({ piece }) => {
 			setPiece(piece);
 		});

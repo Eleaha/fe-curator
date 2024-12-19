@@ -7,6 +7,7 @@ import { MyExhibitions } from "./components/pages/MyExhibitions";
 import { BrowsePieces } from "./components/pages/BrowsePieces";
 import { ExhibitionPage } from "./components/pages/ExhibitionPage";
 import { PiecePage } from "./components/pages/PiecePage";
+import { CreateExhibitionPage } from "./components/pages/CreateExhibitionPage";
 
 function App() {
 	return (
@@ -19,6 +20,7 @@ function App() {
 				<Route path="/exhibitions" element={<ExhibitionPage />}></Route>
 				<Route path="/my-exhibitions" element={<MyExhibitions />}></Route>
 				<Route path="/piece" element={<PiecePage />}></Route>
+				<Route path="/exhibitions/create" element={<CreateExhibitionPage />}></Route>
 			</Routes>
 		</main>
 	);
