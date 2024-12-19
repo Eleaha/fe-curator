@@ -20,7 +20,7 @@ export const ExhibitionPage = () => {
 	}, []);
 
 	return (
-		<div
+		<main
 			className="page"
 			style={
 				exhibition !== null ? { backgroundColor: exhibition!.bg_colour } : undefined
@@ -35,6 +35,6 @@ export const ExhibitionPage = () => {
 					})}
 				</div>
 			) : null}
-		</div>
+		</main>
 	);
 };

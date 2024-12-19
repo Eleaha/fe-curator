@@ -13,11 +13,11 @@ export const BrowseExhibitions = () => {
 	}, []);
 
 	return (
-		<div className="page" id="home-page">
+		<main className="page" id="home-page">
 			<h1>Browse Exhibitions</h1>
 			{exhibitions.map((exhibition: Exhibition) => {
 				return <ExhibitionCard exhibition={exhibition} key={exhibition.exhibition_id}/>;
 			})}
-		</div>
+		</main>
 	);
 };

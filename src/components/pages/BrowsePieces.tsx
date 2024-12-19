@@ -23,7 +23,7 @@ export const BrowsePieces = () => {
 	}, [searchTerm, searchParams]);
 
 	return (
-		<div className="page" id="home-page">
+		<main className="page" id="home-page">
 			<h1>Browse Pieces</h1>
 			{pieces.length ? (
 				<div>
@@ -39,6 +39,6 @@ export const BrowsePieces = () => {
 			) : (
 				<h2>Please use the search bar to find some interesting things...</h2>
 			)}
-		</div>
+		</main>
 	);
 };

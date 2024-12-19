@@ -2,7 +2,10 @@ export interface UserContext {
 	userId: number;
 	setUserId: (value: number) => void;
 }
-
+export interface User {
+	user_id: number;
+	username: string;
+}
 export interface Exhibition {
 	exhibition_id: number;
 	user_id: number;
@@ -31,6 +34,19 @@ export interface Piece {
 	date: string;
 	material?: string | undefined;
 	description?: string | undefined;
+}
+
+export interface ExhibitionPayload {
+	user_id: number;
+	title: string;
+	description: string;
+	bg_colour: string;
+}
+
+export interface ExhibitionUpdatePayload {
+	title?: string;
+	description?: string;
+	bg_colour?: string;
 }
 
 export interface ExhibitionPiecePayload {

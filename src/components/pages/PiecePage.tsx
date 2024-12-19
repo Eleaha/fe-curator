@@ -15,12 +15,11 @@ export const PiecePage = () => {
 	useEffect(() => {
 		getPiece(+institutionId!, pieceId!).then(({ piece }) => {
 			setPiece(piece);
-			console.log(piece.piece_id);
 		});
 	}, []);
 
 	return (
-		<div className="page">
+		<main className="page">
 			{piece !== null ? (
 				<div>
 					<h1>{piece.title}</h1>
@@ -33,6 +32,6 @@ export const PiecePage = () => {
 					<img src={piece.img_url} />
 				</div>
 			) : null}
-		</div>
+		</main>
 	);
 };
