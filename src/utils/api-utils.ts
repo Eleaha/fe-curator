@@ -1,9 +1,19 @@
 import axios from "axios";
-import { ExhibitionPayload, ExhibitionPiecePayload, ExhibitionUpdatePayload } from "../interfaces";
+import {
+	ExhibitionPayload,
+	ExhibitionPiecePayload,
+	ExhibitionUpdatePayload,
+} from "../interfaces";
 
 const client = axios.create({
 	baseURL: "https://dev-curator.onrender.com/api/",
 });
+
+export const getUserById = (userId: number) => {
+	return client.get(`users/${userId}`).then(({ data }) => {
+		return data;
+	});
+};
 
 export const getPieces = (searchTerm: string, page: number) => {
 	return client.get(`pieces/${searchTerm}?page=${page}`).then(({ data }) => {
@@ -41,17 +51,22 @@ export const postExhibition = (payload: ExhibitionPayload) => {
 	});
 };
 
-export const patchExhibition = (exhibitionId: number, payload: ExhibitionUpdatePayload) => {
-	return client.patch(`exhibitions/${exhibitionId}`, payload).then(({data}) => {
-		return data
-	})
-}
+export const patchExhibition = (
+	exhibitionId: number,
+	payload: ExhibitionUpdatePayload
+) => {
+	return client
+		.patch(`exhibitions/${exhibitionId}`, payload)
+		.then(({ data }) => {
+			return data;
+		});
+};
 
 export const deleteExhibition = (exhibitionId: number) => {
 	return client.delete(`exhibitions/${exhibitionId}`).then(() => {
-		return null
-	})
-}
+		return null;
+	});
+};
 
 export const postPieceToExhibition = (
 	exhibitionId: number,

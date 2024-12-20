@@ -5,8 +5,8 @@ import {
 	UserContextInterface,
 } from "../interfaces";
 import { UserContext } from "../contexts/UserContext";
-import { FormEvent, useContext, useState } from "react";
-import { deleteExhibition, patchExhibition } from "../utils/api-utils";
+import { FormEvent, useContext, useEffect, useState } from "react";
+import { deleteExhibition, getUserById, patchExhibition } from "../utils/api-utils";
 import { HexColorPicker } from "react-colorful";
 
 export const ExhibitionCard = ({ exhibition }: { exhibition: Exhibition }) => {
@@ -17,12 +17,18 @@ export const ExhibitionCard = ({ exhibition }: { exhibition: Exhibition }) => {
 	const [deleted, setDeleted] = useState(false);
 	const [title, setTitle] = useState(exhibition.title);
 	const [description, setDescription] = useState(exhibition.description);
+	const [username, setUsername] = useState<string | undefined>(undefined)
 
 	const navigate = useNavigate();
 
 	const userContext: UserContextInterface | undefined = useContext(UserContext);
 	const userId = userContext!.user.user_id;
-	const username = userContext!.user.username;
+
+	useEffect(() => {
+		getUserById(exhibition.user_id).then(({user}) => {
+			setUsername(user.username)
+		})
+	})
 
 	const handleClick = () => {
 		navigate(`/exhibitions?id=${currentExhibition.exhibition_id}`);
@@ -61,7 +67,6 @@ export const ExhibitionCard = ({ exhibition }: { exhibition: Exhibition }) => {
 			description,
 			bg_colour: colour,
 		};
-
 		patchExhibition(currentExhibition.exhibition_id, payload).then(
 			({ exhibition }) => {
 				setCurrentExhibition(exhibition);
@@ -80,7 +85,7 @@ export const ExhibitionCard = ({ exhibition }: { exhibition: Exhibition }) => {
 					<div onClick={handleClick}>
 						<h2 className="exhibition-card-title">{currentExhibition.title}</h2>
 						<p>{currentExhibition.description}</p>
-						<h2>By {username}</h2>
+						{userId !== exhibition.user_id ? <h2>By {username}</h2> : null}
 					</div>
 				</div>
 			) : (
