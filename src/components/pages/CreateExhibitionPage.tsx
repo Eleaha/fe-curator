@@ -1,24 +1,19 @@
 import { FormEvent, useContext, useState } from "react";
-import { UserIdContext } from "../../contexts/UserContext";
-import { ExhibitionPayload, UserContext } from "../../interfaces";
+import { UserContext } from "../../contexts/UserContext";
+import { ExhibitionPayload, UserContextInterface } from "../../interfaces";
 import { HexColorPicker } from "react-colorful";
 import { postExhibition } from "../../utils/api-utils";
 import { useNavigate } from "react-router-dom";
-
-// user_id: 1,
-// title: "Test Exhibition",
-// description: "a test exhibition",
-// bg_colour: "#000000",
 
 export const CreateExhibitionPage = () => {
 	const [colour, setColour] = useState("#aabbcc");
 	const [title, setTitle] = useState("");
 	const [description, setDescription] = useState("");
 
-	const userContext: UserContext | undefined = useContext(UserIdContext);
-	const userId = userContext!.userId;
+	const userContext: UserContextInterface | undefined = useContext(UserContext);
+	const userId = userContext!.user.user_id;
 
-    const navigate = useNavigate()
+	const navigate = useNavigate();
 
 	const handleTitleChange = (e: FormEvent<HTMLInputElement>) => {
 		setTitle(e.currentTarget.value);
@@ -37,10 +32,9 @@ export const CreateExhibitionPage = () => {
 			bg_colour: colour,
 		};
 
-        postExhibition(payload).then(({exhibition}) => {
-            navigate(`/exhibitions?id=${exhibition.exhibition_id}`)
-        })
-
+		postExhibition(payload).then(({ exhibition }) => {
+			navigate(`/exhibitions?id=${exhibition.exhibition_id}`);
+		});
 	};
 
 	return (

@@ -1,6 +1,6 @@
-export interface UserContext {
-	userId: number;
-	setUserId: (value: number) => void;
+export interface UserContextInterface {
+	user: User;
+	setUser: (value: User) => void;
 }
 export interface User {
 	user_id: number;

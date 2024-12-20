@@ -1,13 +1,15 @@
 import { createContext, useState } from "react";
-import { UserContext } from "../interfaces";
+import { UserContextInterface } from "../interfaces";
 
-export const UserIdContext = createContext<UserContext | undefined>(undefined);
+export const UserContext = createContext<UserContextInterface | undefined>(
+	undefined
+);
 
 export const UserIdProvider = ({ children }: any) => {
-	const [userId, setUserId] = useState(1);
+	const [user, setUser] = useState({ user_id: 1, username: "juzz0604" });
 	return (
-		<UserIdContext.Provider value={{ userId, setUserId }}>
+		<UserContext.Provider value={{ user, setUser }}>
 			{children}
-		</UserIdContext.Provider>
+		</UserContext.Provider>
 	);
 };

@@ -3,13 +3,13 @@ import {
 	Exhibition,
 	ExhibitionPiecePayload,
 	Piece,
-	UserContext,
+	UserContextInterface,
 } from "../interfaces";
 import {
 	getExhibitionsByUser,
 	postPieceToExhibition,
 } from "../utils/api-utils";
-import { UserIdContext } from "../contexts/UserContext";
+import { UserContext } from "../contexts/UserContext";
 
 export const AddPieceToExhibition = ({ piece }: { piece: Piece }) => {
 	const [displayAddOptionBox, setDisplayOptionBox] = useState(false);
@@ -20,8 +20,8 @@ export const AddPieceToExhibition = ({ piece }: { piece: Piece }) => {
 		null
 	);
 
-	const userContext: UserContext | undefined = useContext(UserIdContext);
-	const userId = userContext!.userId;
+	const userContext: UserContextInterface | undefined = useContext(UserContext);
+	const userId = userContext!.user.user_id;
 
 	useEffect(() => {
 		getExhibitionsByUser(userId).then(({ exhibitions }) => {
