@@ -2,6 +2,7 @@ import axios from "axios";
 import {
 	ExhibitionPayload,
 	ExhibitionPiecePayload,
+	ExhibitionPieceUpdatePayload,
 	ExhibitionUpdatePayload,
 } from "../interfaces";
 
@@ -74,5 +75,21 @@ export const postPieceToExhibition = (
 ) => {
 	return client.post(`exhibitions/${exhibitionId}`, payload).then(({ data }) => {
 		return data;
+	});
+};
+
+export const updateExhibitionPiece = (exhibitionPieceId: number, payload: ExhibitionPieceUpdatePayload) => {
+	console.log(payload)
+	return client
+		.patch(`exhibitions/pieces/${exhibitionPieceId}`, payload)
+		.then(({ data }) => {
+			console.log(data)
+			return data;
+		});
+};
+
+export const deleteExhibitionPiece = (exhibitionPieceId: number) => {
+	return client.delete(`exhibitions/pieces/${exhibitionPieceId}`).then(() => {
+		return null;
 	});
 };

@@ -15,6 +15,7 @@ export const PiecePage = () => {
 	useEffect(() => {
 		getPiece(+institutionId!, pieceId!).then(({ piece }) => {
 			setPiece(piece);
+			console.log(+institutionId!, pieceId!, piece)
 		});
 	}, []);
 
