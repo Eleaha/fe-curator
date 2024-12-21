@@ -56,3 +56,7 @@ export interface ExhibitionPiecePayload {
 	img_url: string;
 	note?: string;
 }
+
+export interface ExhibitionPieceUpdatePayload {
+	note: string | undefined;
+}

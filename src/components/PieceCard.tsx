@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
+import { Piece } from "../interfaces";
 
-export const PieceCard = (pieceObj: any) => {
+export const PieceCard = ({piece}: {piece: Piece}) => {
 
 	const navigate = useNavigate()
 
@@ -8,12 +9,13 @@ export const PieceCard = (pieceObj: any) => {
 		navigate(`/piece?institution=${piece.institution_id}&piece=${piece.piece_id}&page=1`)
 	}
 
-	const { piece } = pieceObj;
 	return (
-			<div key={piece.piece_id} onClick={handleClick}>
-				<h2>{piece.title}</h2>
-                <h3>{piece.maker} - {piece.date}</h3>
-				<img src={piece.img_url} />
-			</div>
+		<div key={piece.piece_id}>
+			<h2>{piece.title}</h2>
+			<h3>
+				{piece.maker} - {piece.date}
+			</h3>
+			<img src={piece.img_url} onClick={handleClick}/>
+		</div>
 	);
 };

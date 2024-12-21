@@ -6,18 +6,23 @@ import {
 } from "../interfaces";
 import { UserContext } from "../contexts/UserContext";
 import { FormEvent, useContext, useEffect, useState } from "react";
-import { deleteExhibition, getUserById, patchExhibition } from "../utils/api-utils";
+import {
+	deleteExhibition,
+	getUserById,
+	patchExhibition,
+} from "../utils/api-utils";
 import { HexColorPicker } from "react-colorful";
+import { EditButton } from "./EditButton";
+import { DeleteButton } from "./DeleteButton";
 
 export const ExhibitionCard = ({ exhibition }: { exhibition: Exhibition }) => {
 	const [currentExhibition, setCurrentExhibition] = useState(exhibition);
 	const [colour, setColour] = useState("#aabbcc");
 	const [editing, setEditing] = useState(false);
-	const [deleting, setDeleting] = useState(false);
 	const [deleted, setDeleted] = useState(false);
 	const [title, setTitle] = useState(exhibition.title);
 	const [description, setDescription] = useState(exhibition.description);
-	const [username, setUsername] = useState<string | undefined>(undefined)
+	const [username, setUsername] = useState<string | undefined>(undefined);
 
 	const navigate = useNavigate();
 
@@ -25,17 +30,13 @@ export const ExhibitionCard = ({ exhibition }: { exhibition: Exhibition }) => {
 	const userId = userContext!.user.user_id;
 
 	useEffect(() => {
-		getUserById(exhibition.user_id).then(({user}) => {
-			setUsername(user.username)
-		})
-	})
+		getUserById(exhibition.user_id).then(({ user }) => {
+			setUsername(user.username);
+		});
+	});
 
 	const handleClick = () => {
 		navigate(`/exhibitions?id=${currentExhibition.exhibition_id}`);
-	};
-
-	const handleEditButtonClick = () => {
-		setEditing(!editing);
 	};
 
 	const handleTitleChange = (e: FormEvent<HTMLInputElement>) => {
@@ -44,20 +45,6 @@ export const ExhibitionCard = ({ exhibition }: { exhibition: Exhibition }) => {
 
 	const handleDescriptionChange = (e: FormEvent<HTMLInputElement>) => {
 		setDescription(e.currentTarget.value);
-	};
-
-	const handleDeleteButtonClick = () => {
-		setDeleting(true);
-	};
-
-	const handleYesDeleteButtonClick = () => {
-		deleteExhibition(+currentExhibition.exhibition_id).then(() => {
-			setDeleted(true);
-		});
-	};
-
-	const handleNoDeleteButtonClick = () => {
-		setDeleting(false);
 	};
 
 	const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
@@ -110,24 +97,15 @@ export const ExhibitionCard = ({ exhibition }: { exhibition: Exhibition }) => {
 						<HexColorPicker color={colour} onChange={setColour} />
 						<button>Update</button>
 					</form>
-					<button id="delete-exhibition" onClick={handleDeleteButtonClick}>
-						🚮
-					</button>
-					{deleting ? (
-						<div>
-							<p>Do you really want to delete your exhibition?</p>
-							<button id="yes-delete" onClick={handleYesDeleteButtonClick}>
-								Yes
-							</button>
-							<button id="no-delete" onClick={handleNoDeleteButtonClick}>
-								No
-							</button>
-						</div>
-					) : null}
+					<DeleteButton
+						deleteApiFunction={deleteExhibition}
+						deleteId={+exhibition.exhibition_id}
+						setDeleted={setDeleted}
+					/>
 				</div>
 			)}
 			{currentExhibition.user_id === userId ? (
-				<button onClick={handleEditButtonClick}>✏</button>
+				<EditButton editing={editing} setEditing={setEditing} />
 			) : null}
 		</div>
 	) : (
