@@ -1,0 +1,225 @@
+/* Header */
+.header {
+	display: flex;
+	position: fixed;
+	justify-content: space-between;
+	align-items: center;
+	height: 4rem;
+	width: 100vw;
+	top: 0;
+	padding: 0rem 3rem;
+	background-color: var(--light);
+	z-index: 100;
+	box-shadow: 0px 0px 10px var(--shadow);
+	border-bottom-left-radius: var(--border-radius);
+	border-bottom-right-radius: var(--border-radius);
+}
+nav ul {
+	display: flex;
+	text-decoration: none;
+	float: right;
+}
+.nav-link {
+	margin: 0 1.5rem;
+}
+
+/* General */
+.search-button {
+	font-size: 1.5rem;
+	padding: 0.25rem;
+	margin: 0.5rem 0.5rem;
+	border-radius: var(--small-border-radius);
+}
+.big-button {
+	margin: 1rem 0;
+	font-size: 2rem;
+	padding: 0.5rem;
+	border-radius: var(--border-radius);
+}
+.search-bar {
+	font-size: 1.5rem;
+	padding: 0.25rem;
+	border-radius: var(--small-border-radius);
+}
+.nav-button-container {
+	position: fixed;
+	bottom: 2rem;
+	width: 25%;
+	display: flex;
+	align-items: space-between;
+}
+.next {
+	margin-left: 0.5rem;
+}
+.card {
+	box-shadow: 0px 0px 10px var(--shadow);
+	border-radius: var(--border-radius);
+	padding: 1rem;
+	margin: 0 1rem 1rem 1rem;
+	max-width: 600px;
+	width: 70%;
+	height: fit-content;
+}
+.text-input {
+	font-size: 1rem;
+	width: 70%;
+	padding: 0.1rem;
+	margin: 0.25rem 0;
+}
+
+/* Main Pages */
+.page {
+	margin: 8rem 3.5rem 0 3.5rem;
+	display: flex;
+}
+.page-info {
+	position: fixed;
+	width: 25%;
+}
+.page-title {
+	font-size: 4rem;
+}
+.page-content {
+	width: 70%;
+	margin-left: 30vw;
+}
+
+/* Home Page */
+.home-welcome-container {
+	width: 40%;
+	padding-right: 2rem;
+}
+.home-welcome {
+	font-size: 5rem;
+}
+.home-welcome-container h3 {
+	margin: 1.5rem 0;
+}
+.search-bar {
+	background-color: var(--dark);
+	color: var(--light);
+}
+.home-nav-container {
+	width: 100%;
+}
+.home-nav-container .piece-search-bar {
+	margin: 2rem;
+	width: 100%;
+}
+.home-nav-container .search-bar {
+	font-size: 2rem;
+	padding: 0.5rem;
+	border: none;
+	border-radius: var(--border-radius);
+}
+.home-nav-container .search-button {
+	font-size: 2rem;
+	padding: 0.5rem;
+	border-radius: var(--border-radius);
+	margin: 0 1rem;
+}
+.home-nav-squares {
+	display: flex;
+	justify-content: space-around;
+}
+.home-square {
+	margin: 2rem;
+	padding: 2rem;
+	width: 45%;
+	box-shadow: 0px 0px 10px var(--shadow);
+	border-radius: var(--border-radius);
+}
+.home-square-title {
+	font-size: 2.5rem;
+	text-align: center;
+}
+.home-square-icon {
+	font-size: 6rem;
+	text-align: center;
+}
+
+/* Exhibition Page */
+.exhibition-background {
+	width: 100vw;
+	height: 100vh;
+	position: fixed;
+	top: 0;
+	left: 0;
+	z-index: -1;
+}
+.exhibition-card {
+	width: 70%;
+	margin: 1rem auto;
+}
+.exhibition-piece-card {
+	margin: 1rem auto;
+}
+.exhibition-piece-card h3 {
+	margin-bottom: 0.5rem;
+
+}
+
+/* Browse Pieces */
+.piece-card {
+	margin: 1rem auto;
+}
+.piece-card h3 {
+	margin-bottom: 0.5rem;
+}
+
+/* Add Piece to Exhibition */
+.add-to-exhibition {
+	display: flex;
+	align-items: space-between;
+}
+.exhibition-drop-down {
+	font-size: 1rem;
+	padding: 0.25rem;
+	margin: 0 1rem;
+	border: none;
+	border-radius: var(--small-border-radius);
+	box-shadow: 0px 0px 10px var(--shadow);
+}
+@media (max-width: 1300px) {
+	:root {
+		font-size: 14px;
+	}
+	html {
+		width: 100vw;
+	}
+	.page {
+		display:block;
+		margin: 6rem 4rem;
+		margin-right: 4rem;
+	}
+	.page-info {
+		position:relative;
+		width: 100%;
+	}
+	.page-content {
+		width: 100%;
+		margin: 1rem auto;
+	}
+	.home-welcome-container {
+		width: 100%;
+	}
+	.home-nav-container {
+		width: 100%;
+	}
+	.nav-button-container {
+		position: fixed;
+		bottom: 1rem;
+	}
+	.home-nav-squares {
+		width: 100%;
+		margin: auto;
+		display: block;
+	}
+	.home-square {
+		margin: 1rem auto;
+	}
+	.home-nav-container .piece-search-bar {
+		width: 100%;
+		margin-left: 0;
+	}
+}

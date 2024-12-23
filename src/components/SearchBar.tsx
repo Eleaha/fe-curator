@@ -14,12 +14,12 @@ export const SearchBar = () => {
 		navigate(`/browse-pieces?search=${currentSearch}`)
 	};
 	return (
-		<div>
-			<h2>Search</h2>
-			<form className="search-bar" onSubmit={handleSubmit}>
+		<div className="piece-search-bar">
+			<h2>Search collections</h2>
+			<form className="search" onSubmit={handleSubmit}>
 				<label htmlFor="search-bar"></label>
 				<input className="search-bar" id="search-bar" type="text" value={currentSearch} onChange={handleInputChange}></input>
-                <input type="submit" value="search"></input>
+                <button type="submit" value="search" className="search-button" id="search-button">Search</button>
 			</form>
 		</div>
 	);

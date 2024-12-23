@@ -13,5 +13,5 @@ export const NavButtonNext = () => {
 		navigate(`${location.pathname}?${params.toString()}`, { replace: true });
 	};
 
-	return <button onClick={handleNextPage}>Next Page</button>;
+	return <button className="nav-button next" onClick={handleNextPage}>Next Page</button>;
 };

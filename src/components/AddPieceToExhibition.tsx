@@ -51,7 +51,7 @@ export const AddPieceToExhibition = ({ piece }: { piece: Piece }) => {
 	};
 
 	return (
-		<div>
+		<div className="add-to-exhibition">
 			<button onClick={handleAddClick}>+</button>
 			{displayAddOptionBox ? (
 				<div>
@@ -63,6 +63,7 @@ export const AddPieceToExhibition = ({ piece }: { piece: Piece }) => {
 							required={true}
 							form="select-exhibition-to-add-to"
 							onChange={handleSelectionChange}
+							className="exhibition-drop-down"
 						>
 							{userExhibitions!.map((exhibition: Exhibition) => {
 								return (

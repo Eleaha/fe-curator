@@ -24,38 +24,37 @@ export const ExhibitionPage = () => {
 			});
 		}
 	}, []);
-	
-	//add edit button
-	//set state to editing
-	//can delete pieces from exhibition page
-	//state passed to exhibition piece cards
-	//they then display individual edit buttons
-	//can edit description or set it to the pieces description
 
 	return (
-		<main
-			className="page"
-			style={
-				exhibition !== null ? { backgroundColor: exhibition!.bg_colour } : undefined
-			}
-		>
+		<main className="page" id="exhibition-page">
+			<div
+				className="exhibition-background"
+				style={
+					exhibition !== null
+						? { backgroundColor: exhibition!.bg_colour }
+						: undefined
+				}
+			></div>
 			{exhibition !== null ? (
 				<div>
-					<h1>{exhibition.title}</h1>
-					{userId === exhibition.user_id ? (
-						<EditButton editing={editing} setEditing={setEditing}/>
-					) : null}
-
-					<p>{exhibition.description}</p>
-					{exhibition.pieces!.map((exhibitionPiece) => {
-						return (
-							<ExhibitionPieceCard
-								exhibitionPiece={exhibitionPiece}
-								key={exhibitionPiece.id}
-								editing={editing}
-							/>
-						);
-					})}
+					<div className="page-info">
+						<h1 className="page-title">{exhibition.title}</h1>
+						<p>{exhibition.description}</p>
+						{userId === exhibition.user_id ? (
+							<EditButton editing={editing} setEditing={setEditing} />
+						) : null}
+					</div>
+					<div className="page-content">
+						{exhibition.pieces!.map((exhibitionPiece) => {
+							return (
+								<ExhibitionPieceCard
+									exhibitionPiece={exhibitionPiece}
+									key={exhibitionPiece.id}
+									editing={editing}
+								/>
+							);
+						})}
+					</div>
 				</div>
 			) : null}
 		</main>

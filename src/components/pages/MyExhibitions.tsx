@@ -18,19 +18,23 @@ export const MyExhibitions = () => {
 	}, []);
 
 	return (
-		<main className="page" id="home-page">
-			<h1>My Exhibitions</h1>
-			<CreateExhibitionButton />
-			{myExhibitions
-				? myExhibitions.map((singleExhibition: Exhibition) => {
-						return (
-							<ExhibitionCard
-								exhibition={singleExhibition}
-								key={singleExhibition.exhibition_id}
-							/>
-						);
-				  })
-				: null}
+		<main className="page" id="my-exhibition-page">
+			<div className="page-info">
+				<h1 className="page-title">My Exhibitions</h1>
+				<CreateExhibitionButton />
+			</div>
+			<div className="page-content">
+				{myExhibitions
+					? myExhibitions.map((singleExhibition: Exhibition) => {
+							return (
+								<ExhibitionCard
+									exhibition={singleExhibition}
+									key={singleExhibition.exhibition_id}
+								/>
+							);
+					  })
+					: null}
+			</div>
 		</main>
 	);
 };

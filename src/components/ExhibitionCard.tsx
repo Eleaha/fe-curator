@@ -66,14 +66,14 @@ export const ExhibitionCard = ({ exhibition }: { exhibition: Exhibition }) => {
 		<div
 			key={currentExhibition.exhibition_id}
 			style={{ backgroundColor: currentExhibition!.bg_colour }}
+			className="card exhibition-card"
+			id="exhibition"
 		>
 			{!editing ? (
-				<div>
-					<div onClick={handleClick}>
-						<h2 className="exhibition-card-title">{currentExhibition.title}</h2>
-						<p>{currentExhibition.description}</p>
-						{userId !== exhibition.user_id ? <h2>By {username}</h2> : null}
-					</div>
+				<div onClick={handleClick}>
+					<h1 className="exhibition-card-title">{currentExhibition.title}</h1>
+					<p>{currentExhibition.description}</p>
+					{userId !== exhibition.user_id ? <h2>By {username}</h2> : null}
 				</div>
 			) : (
 				<div>
@@ -82,15 +82,16 @@ export const ExhibitionCard = ({ exhibition }: { exhibition: Exhibition }) => {
 						<input
 							type="text"
 							id="edit-title"
-							className="exhibition-card-title"
+							className="exhibition-card-title text-input"
 							value={title}
 							onChange={handleTitleChange}
 						></input>
-						<label htmlFor="edit-description">Edit Description</label>
+						<br/>
+						<label htmlFor="edit-description">Edit Description:</label>
 						<input
 							type="text"
 							id="edit-description"
-							className="exhibition-card-description"
+							className="exhibition-card-description text-input"
 							value={description}
 							onChange={handleDescriptionChange}
 						></input>

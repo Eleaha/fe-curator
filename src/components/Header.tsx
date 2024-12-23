@@ -2,21 +2,21 @@ import { Link } from "react-router-dom";
 
 export const Header = () => {
 	return (
-		<header>
-			<Link to="/">
-				<h1>Curator</h1>
-			</Link>
+		<header className="header">
+			<h1 className="header-title">
+				<Link to="/">Curator</Link>
+			</h1>
 			<nav>
-				<ul>
-					<Link to="/browse-pieces">
-						<li>Browse Pieces</li>
-					</Link>
-					<Link to="/my-exhibitions/">
-						<li>My Exhibitions</li>
-					</Link>
-					<Link to="/browse-exhibitions">
-						<li>Browse Exhibitions</li>
-					</Link>
+				<ul id="nav-list">
+					<li className="nav-link">
+						<Link to="/browse-pieces">Browse Pieces</Link>
+					</li>
+					<li className="nav-link">
+						<Link to="/my-exhibitions/">My Exhibitions</Link>
+					</li>
+					<li className="nav-link">
+						<Link to="/browse-exhibitions">Browse Exhibitions</Link>
+					</li>
 				</ul>
 			</nav>
 		</header>
