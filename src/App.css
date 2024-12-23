@@ -69,7 +69,7 @@ nav ul {
 
 /* Main Pages */
 .page {
-	margin: 6rem 3.5rem 0 3.5rem;
+	padding: 6rem 3.5rem 0 3.5rem;
 	display: flex;
 }
 .page-info {
@@ -156,7 +156,6 @@ nav ul {
 }
 .exhibition-piece-card h3 {
 	margin-bottom: 0.5rem;
-
 }
 
 /* Browse Pieces */
@@ -180,6 +179,7 @@ nav ul {
 	border-radius: var(--small-border-radius);
 	box-shadow: 0px 0px 10px var(--shadow);
 }
+
 @media (max-width: 1300px) {
 	:root {
 		font-size: 14px;
@@ -188,12 +188,12 @@ nav ul {
 		width: 100vw;
 	}
 	.page {
-		display:block;
-		margin: 6rem 4rem;
-		margin-right: 4rem;
+		display: block;
+		padding: 4rem;
+		margin-top: 4rem;
 	}
 	.page-info {
-		position:relative;
+		position: relative;
 		width: 100%;
 	}
 	.page-content {
@@ -221,5 +221,50 @@ nav ul {
 	.home-nav-container .piece-search-bar {
 		width: 100%;
 		margin-left: 0;
+	}
+}
+
+@media (max-width: 500px) {
+	:root {
+		font-size: 14px;
+	}
+	#home-page h1 {
+		font-size: 3rem;
+	}
+	.header {
+		padding-left: 1rem;
+		padding-right: 1rem;
+		width: 100vw;
+	}
+	.search-bar {
+		font-size: 1rem;
+		width: 100%;
+	}
+	.home-nav-container .search-button {
+		margin: 1rem 0;
+	}
+	button {
+		font-size: 1rem;
+	}
+	.card {
+		width: 100%;
+	}
+	.home-square {
+		width: 100%;
+	}
+	.nav-link {
+		margin: 0;
+	}
+	.page {
+		padding: 1rem;
+	}
+	form {
+		width: 100%;
+	}
+	.header-title {
+		margin-right: 1rem;
+	}
+	.nav-link {
+		padding: 0.3rem;
 	}
 }
