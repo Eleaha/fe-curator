@@ -15,22 +15,26 @@ export const PiecePage = () => {
 	useEffect(() => {
 		getPiece(+institutionId!, pieceId!).then(({ piece }) => {
 			setPiece(piece);
-			console.log(+institutionId!, pieceId!, piece)
+			console.log(+institutionId!, pieceId!, piece);
 		});
 	}, []);
 
 	return (
-		<main className="page">
+		<main className="page" id="piece-page">
 			{piece !== null ? (
 				<div>
-					<h1>{piece.title}</h1>
-					<AddPieceToExhibition piece={piece} />
-					<h2>
-						{piece.maker} - {piece.date}
-					</h2>
-					<h3>{piece.material}</h3>
-					<p>{piece.description}</p>
-					<img src={piece.img_url} />
+					<div className="page-info">
+						<h1>{piece.title}</h1>
+						<h2>
+							{piece.maker} - {piece.date}
+						</h2>
+						<h3>{piece.material}</h3>
+						<p>{piece.description}</p>
+						<AddPieceToExhibition piece={piece} />
+					</div>
+					<div className="page-content">
+						<img src={piece.img_url} />
+					</div>
 				</div>
 			) : null}
 		</main>

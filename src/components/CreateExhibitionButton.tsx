@@ -8,5 +8,5 @@ export const CreateExhibitionButton = () => {
         navigate('/exhibitions/create')
     }
 
-    return <button onClick={handleClick}>Create Exhibition</button>
+    return <button onClick={handleClick} className="big-button" id="create-exhibition-button">Create Exhibition</button>
 }

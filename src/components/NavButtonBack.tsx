@@ -13,5 +13,5 @@ export const NavButtonBack = () => {
 		navigate(`${location.pathname}?${params.toString()}`, { replace: true });
 	};
 
-	return <button disabled={+currentPage <= 1 ? true : false} onClick={handlePreviousPage}>Previous Page</button>;
+	return <button className="nav-button" disabled={+currentPage <= 1 ? true : false} onClick={handlePreviousPage}>Previous Page</button>;
 };

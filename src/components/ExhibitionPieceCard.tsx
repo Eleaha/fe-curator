@@ -4,7 +4,11 @@ import {
 	ExhibitionPieceUpdatePayload,
 	Piece,
 } from "../interfaces";
-import { deleteExhibitionPiece, getPiece, updateExhibitionPiece } from "../utils/api-utils";
+import {
+	deleteExhibitionPiece,
+	getPiece,
+	updateExhibitionPiece,
+} from "../utils/api-utils";
 import { useNavigate } from "react-router-dom";
 import { DeleteButton } from "./DeleteButton";
 
@@ -47,8 +51,6 @@ export const ExhibitionPieceCard = ({
 		setChecked(e.target.checked);
 	};
 
-	//create post object
-	//create post function
 	const handleUpdate = (e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 
@@ -58,42 +60,37 @@ export const ExhibitionPieceCard = ({
 			note: payloadNote,
 		};
 
-		updateExhibitionPiece(exhibitionPiece.id, payload).then(({exhibitionPiece}) => {
-			console.log(exhibitionPiece)
-		})
-
-
+		updateExhibitionPiece(exhibitionPiece.id, payload).then(
+			({ exhibitionPiece }) => {
+				console.log(exhibitionPiece);
+			}
+		);
 	};
 
 	return piece ? (
-		<div>
+		<div className="card exhibition-piece-card" id="exhibition-piece">
 			{deleted ? (
 				<h1>Piece Deleted!</h1>
 			) : (
 				<div>
-					{editing ? (
-						<DeleteButton
-							deleteApiFunction={deleteExhibitionPiece}
-							deleteId={exhibitionPiece.id}
-							setDeleted={setDeleted}
-						/>
-					) : null}
-					<h2>{piece!.title}</h2>
+					<h1>{piece!.title}</h1>
 
 					<h3>
 						{piece!.maker} - {piece!.date}
 					</h3>
 					<img src={piece.img_url} onClick={handleClick} />
+
 					{editing ? (
 						<form onSubmit={handleUpdate}>
-							<label htmlFor="update-note">Update note</label>
+							<label htmlFor="update-note">Update note:</label>
 							<input
-								type="text"
 								id="update-note"
 								value={note}
 								onChange={handleNoteChange}
 								disabled={checked}
+								className="text-input"
 							></input>
+							<br/>
 							<label htmlFor="use-piece-description-check">
 								Use piece description?
 							</label>
@@ -103,11 +100,19 @@ export const ExhibitionPieceCard = ({
 								checked={checked}
 								onChange={handleUsePieceDescriptionCheckChange}
 							></input>
+							<br/>
 							<button>Update</button>
 						</form>
 					) : (
 						<p>{note}</p>
 					)}
+					{editing ? (
+						<DeleteButton
+							deleteApiFunction={deleteExhibitionPiece}
+							deleteId={exhibitionPiece.id}
+							setDeleted={setDeleted}
+						/>
+					) : null}
 				</div>
 			)}
 		</div>

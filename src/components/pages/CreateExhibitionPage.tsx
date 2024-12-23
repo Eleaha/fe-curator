@@ -38,25 +38,38 @@ export const CreateExhibitionPage = () => {
 	};
 
 	return (
-		<main style={{ backgroundColor: colour }}>
-			<h1>Create Exhibition</h1>
-			<form id="create-exhibition-form" onSubmit={handleSubmit}>
-				<div>
-					<label htmlFor="title">Title:</label>
-					<input type="text" id="title" onChange={handleTitleChange} value={title} />
-				</div>
-				<div>
-					<label htmlFor="description">Description:</label>
-					<input
-						type="text"
-						id="description"
-						onChange={handleDescriptionChange}
-						value={description}
-					/>
-				</div>
-				<HexColorPicker color={colour} onChange={setColour} />
-				<button>Create</button>
-			</form>
+		<main className="page" id="create-exhibition-page">
+			<div
+				className="exhibition-background"
+				style={{ backgroundColor: colour }}
+			></div>
+			<div className="page-info">
+				<h1 className="page-title">Create Exhibition</h1>
+			</div>
+			<div className="page-content">
+				<form id="create-exhibition-form" onSubmit={handleSubmit}>
+					<div>
+						<label htmlFor="title">Title:</label>
+						<input
+							type="text"
+							id="title"
+							onChange={handleTitleChange}
+							value={title}
+						/>
+					</div>
+					<div>
+						<label htmlFor="description">Description:</label>
+						<input
+							type="text"
+							id="description"
+							onChange={handleDescriptionChange}
+							value={description}
+						/>
+					</div>
+					<HexColorPicker color={colour} onChange={setColour} />
+					<button>Create</button>
+				</form>
+			</div>
 		</main>
 	);
 };

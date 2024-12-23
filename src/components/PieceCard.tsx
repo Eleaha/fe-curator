@@ -10,12 +10,12 @@ export const PieceCard = ({piece}: {piece: Piece}) => {
 	}
 
 	return (
-		<div key={piece.piece_id}>
-			<h2>{piece.title}</h2>
-			<h3>
+		<div key={piece.piece_id} className="card piece-card" id="piece" onClick={handleClick}>
+			<h1>{piece.title}</h1>
+			<h3 className="maker-and-date">
 				{piece.maker} - {piece.date}
 			</h3>
-			<img src={piece.img_url} onClick={handleClick}/>
+			<img src={piece.img_url}/>
 		</div>
 	);
 };

@@ -23,22 +23,26 @@ export const BrowsePieces = () => {
 	}, [searchTerm, searchParams]);
 
 	return (
-		<main className="page" id="home-page">
-			<h1>Browse Pieces</h1>
-			{pieces.length ? (
-				<div>
-					<NavButtonBack />
-					<NavButtonNext />
-				</div>
-			) : null}
-			<SearchBar />
-			{pieces.length ? (
-				pieces.map((piece: any) => {
-					return <PieceCard piece={piece} key={piece.piece_id} />;
-				})
-			) : (
-				<h2>Please use the search bar to find some interesting things...</h2>
-			)}
+		<main className="page" id="browse-piece-page">
+			<div className="page-info">
+				<h1 className="page-title">Browse Pieces</h1>
+				<SearchBar />
+				{pieces.length ? (
+					<div className="nav-button-container">
+						<NavButtonBack />
+						<NavButtonNext />
+					</div>
+				) : (
+					<h2>Please use the search bar to find some interesting things...</h2>
+				)}
+			</div>
+			<div className="page-content pieces-container">
+				{pieces.length
+					? pieces.map((piece: any) => {
+							return <PieceCard piece={piece} key={piece.piece_id} />;
+					  })
+					: null}
+			</div>
 		</main>
 	);
 };
