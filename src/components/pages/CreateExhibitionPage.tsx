@@ -1,9 +1,15 @@
-import { FormEvent, useContext, useState } from "react";
+import { FormEvent, useContext, useEffect, useState } from "react";
 import { UserContext } from "../../contexts/UserContext";
-import { ExhibitionPayload, UserContextInterface } from "../../interfaces";
+import {
+	ExhibitionPayload,
+	PageLoadingContextInterface,
+	UserContextInterface,
+} from "../../interfaces";
 import { HexColorPicker } from "react-colorful";
 import { postExhibition } from "../../utils/api-utils";
 import { useNavigate } from "react-router-dom";
+import { LoadingPage } from "./LoadingPage";
+import { PageLoadingContext } from "../../contexts/PageLoadingContext";
 
 export const CreateExhibitionPage = () => {
 	const [colour, setColour] = useState("#aabbcc");
@@ -13,7 +19,15 @@ export const CreateExhibitionPage = () => {
 	const userContext: UserContextInterface | undefined = useContext(UserContext);
 	const userId = userContext!.user.user_id;
 
+	const pageLoadingContext: PageLoadingContextInterface | undefined =
+		useContext(PageLoadingContext);
+	const { pageLoading, setPageLoading } = pageLoadingContext!;
+
 	const navigate = useNavigate();
+
+	useEffect(() => {
+		setPageLoading(false);
+	});
 
 	const handleTitleChange = (e: FormEvent<HTMLInputElement>) => {
 		setTitle(e.currentTarget.value);
@@ -37,7 +51,9 @@ export const CreateExhibitionPage = () => {
 		});
 	};
 
-	return (
+	return pageLoading ? (
+		<LoadingPage />
+	) : (
 		<main className="page" id="create-exhibition-page">
 			<div
 				className="exhibition-background"
@@ -55,6 +71,7 @@ export const CreateExhibitionPage = () => {
 							id="title"
 							onChange={handleTitleChange}
 							value={title}
+							required
 						/>
 					</div>
 					<div>

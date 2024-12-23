@@ -1,10 +1,18 @@
 import { useSearchParams } from "react-router-dom";
 import { SearchBar } from "../SearchBar";
 import { getPieces } from "../../utils/api-utils";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { PieceCard } from "../PieceCard";
 import { NavButtonNext } from "../NavButtonNext";
 import { NavButtonBack } from "../NavButtonBack";
+import {
+	ContentLoadingContextInterface,
+	PageLoadingContextInterface,
+} from "../../interfaces";
+import { PageLoadingContext } from "../../contexts/PageLoadingContext";
+import { LoadingPage } from "./LoadingPage";
+import { ContentLoadingContext } from "../../contexts/ContentLoadingContext";
+import { LoadingIcon } from "../LoadingIcon";
 
 export const BrowsePieces = () => {
 	const [searchParams] = useSearchParams();
@@ -13,16 +21,29 @@ export const BrowsePieces = () => {
 
 	const [pieces, setPieces] = useState([]);
 
+	const pageLoadingContext: PageLoadingContextInterface | undefined =
+		useContext(PageLoadingContext);
+	const { pageLoading, setPageLoading } = pageLoadingContext!;
+
+	const contentLoadingContext: ContentLoadingContextInterface | undefined =
+		useContext(ContentLoadingContext);
+	const { contentLoading, setContentLoading } = contentLoadingContext!;
+
 	useEffect(() => {
+		setPageLoading(false);
 		if (searchTerm !== null) {
+			setContentLoading(true);
 			getPieces(searchTerm, +page).then((response) => {
 				const { pieces } = response;
 				setPieces(pieces);
+				setContentLoading(false);
 			});
 		}
 	}, [searchTerm, searchParams]);
 
-	return (
+	return pageLoading ? (
+		<LoadingPage />
+	) : (
 		<main className="page" id="browse-piece-page">
 			<div className="page-info">
 				<h1 className="page-title">Browse Pieces</h1>
@@ -36,13 +57,17 @@ export const BrowsePieces = () => {
 					<h2>Please use the search bar to find some interesting things...</h2>
 				)}
 			</div>
-			<div className="page-content pieces-container">
-				{pieces.length
-					? pieces.map((piece: any) => {
-							return <PieceCard piece={piece} key={piece.piece_id} />;
-					  })
-					: null}
-			</div>
+			{contentLoading ? (
+				<LoadingIcon />
+			) : (
+				<div className="page-content pieces-container">
+					{pieces.length
+						? pieces.map((piece: any) => {
+								return <PieceCard piece={piece} key={piece.piece_id} />;
+						  })
+						: null}
+				</div>
+			)}
 		</main>
 	);
 };

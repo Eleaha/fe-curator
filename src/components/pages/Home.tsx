@@ -1,14 +1,27 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { UserContext } from "../../contexts/UserContext";
 import { SearchBar } from "../SearchBar";
-import { UserContextInterface } from "../../interfaces";
+import {
+	PageLoadingContextInterface,
+	UserContextInterface,
+} from "../../interfaces";
 import { useNavigate } from "react-router-dom";
+import { PageLoadingContext } from "../../contexts/PageLoadingContext";
+import { LoadingPage } from "./LoadingPage";
 
 export const Home = () => {
 	const userContext: UserContextInterface | undefined = useContext(UserContext);
 	const username = userContext!.user.username;
 
+	const pageLoadingContext: PageLoadingContextInterface | undefined =
+		useContext(PageLoadingContext);
+	const { pageLoading, setPageLoading } = pageLoadingContext!;
+
 	const navigate = useNavigate();
+
+	useEffect(() => {
+		setPageLoading(false);
+	}, []);
 
 	const handleCreateExhibitionClick = () => {
 		navigate(`/exhibitions/create`);
@@ -18,7 +31,9 @@ export const Home = () => {
 		navigate(`/browse-exhibitions`);
 	};
 
-	return (
+	return pageLoading ? (
+		<LoadingPage />
+	) : (
 		<main className="page" id="home-page">
 			<div className="home-welcome-container">
 				<h1 className="home-welcome">Welcome!</h1>

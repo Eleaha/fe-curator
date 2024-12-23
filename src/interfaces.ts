@@ -2,6 +2,14 @@ export interface UserContextInterface {
 	user: User;
 	setUser: (value: User) => void;
 }
+export interface PageLoadingContextInterface {
+	pageLoading: boolean;
+	setPageLoading: (value: boolean) => void;
+}
+export interface ContentLoadingContextInterface {
+	contentLoading: boolean;
+	setContentLoading: (value: boolean) => void;
+}
 export interface User {
 	user_id: number;
 	username: string;

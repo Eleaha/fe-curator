@@ -1,11 +1,20 @@
 import { useContext, useEffect, useState } from "react";
 import { getExhibition } from "../../utils/api-utils";
-import { Exhibition, UserContextInterface } from "../../interfaces";
+import {
+	ContentLoadingContextInterface,
+	Exhibition,
+	PageLoadingContextInterface,
+	UserContextInterface,
+} from "../../interfaces";
 
 import { useSearchParams } from "react-router-dom";
 import { ExhibitionPieceCard } from "../ExhibitionPieceCard";
 import { UserContext } from "../../contexts/UserContext";
 import { EditButton } from "../EditButton";
+import { PageLoadingContext } from "../../contexts/PageLoadingContext";
+import { LoadingPage } from "./LoadingPage";
+import { ContentLoadingContext } from "../../contexts/ContentLoadingContext";
+import { LoadingIcon } from "../LoadingIcon";
 
 export const ExhibitionPage = () => {
 	const userContext: UserContextInterface | undefined = useContext(UserContext);
@@ -14,18 +23,31 @@ export const ExhibitionPage = () => {
 	const [searchParams] = useSearchParams();
 	const exhibitionId: string | null = searchParams.get("id") || null;
 
+	const pageLoadingContext: PageLoadingContextInterface | undefined =
+		useContext(PageLoadingContext);
+	const { pageLoading, setPageLoading } = pageLoadingContext!;
+
+	const contentLoadingContext: ContentLoadingContextInterface | undefined =
+		useContext(ContentLoadingContext);
+	const { contentLoading, setContentLoading } = contentLoadingContext!;
+
 	const [exhibition, setExhibition] = useState<Exhibition | null>(null);
 	const [editing, setEditing] = useState<boolean>(false);
 
 	useEffect(() => {
+		setPageLoading(false);
+		setContentLoading(true);
 		if (exhibitionId !== null) {
 			getExhibition(+exhibitionId).then(({ exhibition }) => {
 				setExhibition(exhibition);
+				setContentLoading(false)
 			});
 		}
 	}, []);
 
-	return (
+	return pageLoading ? (
+		<LoadingPage />
+	) : (
 		<main className="page" id="exhibition-page">
 			<div
 				className="exhibition-background"
@@ -44,17 +66,21 @@ export const ExhibitionPage = () => {
 							<EditButton editing={editing} setEditing={setEditing} />
 						) : null}
 					</div>
-					<div className="page-content">
-						{exhibition.pieces!.map((exhibitionPiece) => {
-							return (
-								<ExhibitionPieceCard
-									exhibitionPiece={exhibitionPiece}
-									key={exhibitionPiece.id}
-									editing={editing}
-								/>
-							);
-						})}
-					</div>
+					{contentLoading ? (
+						<LoadingIcon />
+					) : (
+						<div className="page-content">
+							{exhibition.pieces!.map((exhibitionPiece) => {
+								return (
+									<ExhibitionPieceCard
+										exhibitionPiece={exhibitionPiece}
+										key={exhibitionPiece.id}
+										editing={editing}
+									/>
+								);
+							})}
+						</div>
+					)}
 				</div>
 			) : null}
 		</main>
