@@ -10,6 +10,11 @@ export interface ContentLoadingContextInterface {
 	contentLoading: boolean;
 	setContentLoading: (value: boolean) => void;
 }
+
+export interface ErrorProps {
+	errorMessage: string;
+	errorCode: number;
+}
 export interface User {
 	user_id: number;
 	username: string;
