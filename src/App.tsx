@@ -24,7 +24,7 @@ function App() {
 				<Route path="/exhibitions/create" element={<CreateExhibitionPage />} />
 				<Route
 					path="*"
-					element={<ErrorPage errorMessage={"Path not found"} errorCode={400} />}
+					element={<ErrorPage errorMessage={"Path not found"} errorCode={404} />}
 				/>
 			</Routes>
 		</main>
