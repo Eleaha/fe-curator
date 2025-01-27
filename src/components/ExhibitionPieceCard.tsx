@@ -25,6 +25,8 @@ export const ExhibitionPieceCard = ({
 	const [deleted, setDeleted] = useState(false);
 	const [note, setNote] = useState(exhibitionPiece.note);
 	const [checked, setChecked] = useState(false);
+	const [updating, setUpdating] = useState(false);
+	const [updatedText, setUpdatedText] = useState("")
 
 	const navigate = useNavigate();
 
@@ -51,20 +53,25 @@ export const ExhibitionPieceCard = ({
 		setChecked(e.target.checked);
 	};
 
-	const handleUpdate = (e: FormEvent<HTMLFormElement>) => {
+	const handleUpdate = async (e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
-
+		setUpdating(true);
 		const payloadNote: string | undefined = checked ? piece!.description : note;
 
 		const payload: ExhibitionPieceUpdatePayload = {
 			note: payloadNote,
 		};
+		try {
+			await updateExhibitionPiece(exhibitionPiece.id, payload).then(
+				({ exhibitionPiece }) => {
+					console.log(exhibitionPiece);
+				}
+			);
+			setUpdating(false)
+			setUpdatedText("Updated!")
+		} catch {
 
-		updateExhibitionPiece(exhibitionPiece.id, payload).then(
-			({ exhibitionPiece }) => {
-				console.log(exhibitionPiece);
-			}
-		);
+		}
 	};
 
 	return piece ? (
@@ -90,7 +97,7 @@ export const ExhibitionPieceCard = ({
 								disabled={checked}
 								className="text-input"
 							></input>
-							<br/>
+							<br />
 							<label htmlFor="use-piece-description-check">
 								Use piece description?
 							</label>
@@ -100,8 +107,9 @@ export const ExhibitionPieceCard = ({
 								checked={checked}
 								onChange={handleUsePieceDescriptionCheckChange}
 							></input>
-							<br/>
-							<button>Update</button>
+							<br />
+							<button disabled={updating}>Update</button>
+							<p>{updatedText}</p>
 						</form>
 					) : (
 						<p>{note}</p>

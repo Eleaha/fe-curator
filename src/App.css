@@ -167,6 +167,11 @@ nav ul {
 }
 
 /* Add Piece to Exhibition */
+.expand-add-to-exhibition-button {
+	width: 2rem;
+	height: 2rem;
+	margin-right: 0;
+}
 .add-to-exhibition {
 	display: flex;
 	align-items: space-between;
@@ -174,10 +179,13 @@ nav ul {
 .exhibition-drop-down {
 	font-size: 1rem;
 	padding: 0.25rem;
-	margin: 0 1rem;
+	margin: 0 0.5rem 0 0;
 	border: none;
 	border-radius: var(--small-border-radius);
 	box-shadow: 0px 0px 10px var(--shadow);
+}
+.added-piece-to-exhibition-text {
+	margin: 0 20px;
 }
 
 /* Error Page */

@@ -19,6 +19,8 @@ export const AddPieceToExhibition = ({ piece }: { piece: Piece }) => {
 	const [exhibitionToAddTo, setExhibitionToAddTo] = useState<number | null>(
 		null
 	);
+	const [addingPiece, setAddingPiece] = useState(false);
+	const [addedMessage, setAddedMessage] = useState("");
 
 	const userContext: UserContextInterface | undefined = useContext(UserContext);
 	const userId = userContext!.user.user_id;
@@ -38,8 +40,9 @@ export const AddPieceToExhibition = ({ piece }: { piece: Piece }) => {
 		setExhibitionToAddTo(+e.target.value);
 	};
 
-	const handleSubmit = (e: any) => {
+	const handleSubmit = async (e: any) => {
 		e.preventDefault();
+		setAddingPiece(true);
 		const payload: ExhibitionPiecePayload = {
 			institution_id: +piece.institution_id,
 			piece_id: piece.piece_id,
@@ -47,12 +50,25 @@ export const AddPieceToExhibition = ({ piece }: { piece: Piece }) => {
 			img_url: piece.img_url,
 			note: piece.description,
 		};
-		postPieceToExhibition(exhibitionToAddTo!, payload);
+		try {
+			await postPieceToExhibition(exhibitionToAddTo!, payload);
+			setAddedMessage("Added!");
+			setAddingPiece(false);
+		} catch {
+			setAddedMessage("Something went wrong, please try again!");
+			setAddingPiece(false);
+		}
 	};
 
 	return (
 		<div className="add-to-exhibition">
-			<button onClick={handleAddClick}>+</button>
+			<button
+				onClick={handleAddClick}
+				className="expand-add-to-exhibition-button"
+				id="expand-add-to-exhibition-button"
+			>
+				+
+			</button>
 			{displayAddOptionBox ? (
 				<div>
 					<form onSubmit={handleSubmit} id="select-exhibition-to-add-to">
@@ -76,8 +92,11 @@ export const AddPieceToExhibition = ({ piece }: { piece: Piece }) => {
 								);
 							})}
 						</select>
-						<button disabled={exhibitionToAddTo ? false : true}>✔</button>
+						<button disabled={exhibitionToAddTo || !addingPiece ? false : true}>
+							✔
+						</button>
 					</form>
+					<p className="added-piece-to-exhibition-text">{addedMessage}</p>
 				</div>
 			) : null}
 		</div>
