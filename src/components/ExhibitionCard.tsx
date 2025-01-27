@@ -14,6 +14,11 @@ import {
 import { HexColorPicker } from "react-colorful";
 import { EditButton } from "./EditButton";
 import { DeleteButton } from "./DeleteButton";
+import {
+	checkLiveStatus,
+	formatDisplayDate,
+	formatDate,
+} from "../utils/date-utils";
 
 export const ExhibitionCard = ({ exhibition }: { exhibition: Exhibition }) => {
 	const [currentExhibition, setCurrentExhibition] = useState(exhibition);
@@ -22,12 +27,19 @@ export const ExhibitionCard = ({ exhibition }: { exhibition: Exhibition }) => {
 	const [deleted, setDeleted] = useState(false);
 	const [title, setTitle] = useState(exhibition.title);
 	const [description, setDescription] = useState(exhibition.description);
+	const [fromDate, setFromDate] = useState(formatDate(exhibition.from_date));
+	const [toDate, setToDate] = useState(formatDate(exhibition.to_date));
 	const [username, setUsername] = useState<string | undefined>(undefined);
 
 	const navigate = useNavigate();
 
 	const userContext: UserContextInterface | undefined = useContext(UserContext);
 	const userId = userContext!.user.user_id;
+
+	const formattedFromDate: string = formatDisplayDate(
+		currentExhibition.from_date
+	);
+	const formattedToDate: string = formatDisplayDate(currentExhibition.to_date);
 
 	useEffect(() => {
 		getUserById(exhibition.user_id).then(({ user }) => {
@@ -47,12 +59,21 @@ export const ExhibitionCard = ({ exhibition }: { exhibition: Exhibition }) => {
 		setDescription(e.currentTarget.value);
 	};
 
+	const handleFromDateChange = (e: FormEvent<HTMLInputElement>) => {
+		setFromDate(formatDate(e.currentTarget.value));
+	};
+	const handleToDateChange = (e: FormEvent<HTMLInputElement>) => {
+		setToDate(formatDate(e.currentTarget.value));
+	};
+
 	const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 		const payload: ExhibitionUpdatePayload = {
 			title,
 			description,
 			bg_colour: colour,
+			from_date: fromDate,
+			to_date: toDate,
 		};
 		patchExhibition(currentExhibition.exhibition_id, payload).then(
 			({ exhibition }) => {
@@ -73,6 +94,9 @@ export const ExhibitionCard = ({ exhibition }: { exhibition: Exhibition }) => {
 				<div onClick={handleClick}>
 					<h1 className="exhibition-card-title">{currentExhibition.title}</h1>
 					<p>{currentExhibition.description}</p>
+					<p>
+						{checkLiveStatus(currentExhibition.from_date, currentExhibition.to_date)} from {formattedFromDate} to {formattedToDate}
+					</p>
 					{userId !== exhibition.user_id ? <h2>By {username}</h2> : null}
 				</div>
 			) : (
@@ -86,7 +110,7 @@ export const ExhibitionCard = ({ exhibition }: { exhibition: Exhibition }) => {
 							value={title}
 							onChange={handleTitleChange}
 						></input>
-						<br/>
+						<br />
 						<label htmlFor="edit-description">Edit Description:</label>
 						<input
 							type="text"
@@ -95,6 +119,20 @@ export const ExhibitionCard = ({ exhibition }: { exhibition: Exhibition }) => {
 							value={description}
 							onChange={handleDescriptionChange}
 						></input>
+						<label htmlFor="from-date">From date</label>
+						<input
+							type="date"
+							id="from-date"
+							onChange={handleFromDateChange}
+							value={fromDate}
+						/>
+						<label htmlFor="to-date">To date</label>
+						<input
+							type="date"
+							id="to-date"
+							onChange={handleToDateChange}
+							value={toDate}
+						/>
 						<HexColorPicker color={colour} onChange={setColour} />
 						<button>Update</button>
 					</form>

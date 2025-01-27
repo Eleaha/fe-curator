@@ -1,11 +1,16 @@
 import { useContext, useEffect, useState } from "react";
 import { getExhibitions } from "../../utils/api-utils";
-import { ContentLoadingContextInterface, Exhibition, PageLoadingContextInterface } from "../../interfaces";
+import {
+	ContentLoadingContextInterface,
+	Exhibition,
+	PageLoadingContextInterface,
+} from "../../interfaces";
 import { ExhibitionCard } from "../ExhibitionCard";
 import { PageLoadingContext } from "../../contexts/PageLoadingContext";
 import { LoadingIcon } from "../LoadingIcon";
 import { LoadingPage } from "./LoadingPage";
 import { ContentLoadingContext } from "../../contexts/ContentLoadingContext";
+import { checkLiveStatus } from "../../utils/date-utils";
 
 export const BrowseExhibitions = () => {
 	const [exhibitions, setExhibitions] = useState([]);
@@ -13,17 +18,17 @@ export const BrowseExhibitions = () => {
 	const pageLoadingContext: PageLoadingContextInterface | undefined =
 		useContext(PageLoadingContext);
 	const { pageLoading, setPageLoading } = pageLoadingContext!;
-	
+
 	const contentLoadingContext: ContentLoadingContextInterface | undefined =
 		useContext(ContentLoadingContext);
 	const { contentLoading, setContentLoading } = contentLoadingContext!;
 
 	useEffect(() => {
 		setPageLoading(false);
-		setContentLoading(true)
+		setContentLoading(true);
 		getExhibitions().then(({ exhibitions }) => {
 			setExhibitions(exhibitions);
-			setContentLoading(false)
+			setContentLoading(false);
 		});
 	}, []);
 
@@ -39,9 +44,17 @@ export const BrowseExhibitions = () => {
 			) : (
 				<div className="page-content">
 					{exhibitions.map((exhibition: Exhibition) => {
-						return (
-							<ExhibitionCard exhibition={exhibition} key={exhibition.exhibition_id} />
-						);
+						if (
+							checkLiveStatus(exhibition.from_date, exhibition.to_date) ===
+							"Exhibiting"
+						) {
+							return (
+								<ExhibitionCard
+									exhibition={exhibition}
+									key={exhibition.exhibition_id}
+								/>
+							);
+						}
 					})}
 				</div>
 			)}

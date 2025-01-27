@@ -26,6 +26,8 @@ export interface Exhibition {
 	description: string;
 	bg_colour: string;
 	pieces?: ExhibitionPiece[];
+	from_date: string;
+	to_date: string;
 }
 
 export interface ExhibitionPiece {
@@ -54,12 +56,16 @@ export interface ExhibitionPayload {
 	title: string;
 	description: string;
 	bg_colour: string;
+	from_date: string;
+	to_date: string;
 }
 
 export interface ExhibitionUpdatePayload {
 	title?: string;
 	description?: string;
 	bg_colour?: string;
+	from_date?: string;
+	to_date?: string;
 }
 
 export interface ExhibitionPiecePayload {

@@ -15,6 +15,8 @@ export const CreateExhibitionPage = () => {
 	const [colour, setColour] = useState("#aabbcc");
 	const [title, setTitle] = useState("");
 	const [description, setDescription] = useState("");
+	const [fromDate, setFromDate] = useState("");
+	const [toDate, setToDate] = useState("");
 
 	const userContext: UserContextInterface | undefined = useContext(UserContext);
 	const userId = userContext!.user.user_id;
@@ -37,6 +39,13 @@ export const CreateExhibitionPage = () => {
 		setDescription(e.currentTarget.value);
 	};
 
+	const handleFromDateChange = (e: FormEvent<HTMLInputElement>) => {
+		setFromDate(e.currentTarget.value);
+	};
+	const handleToDateChange = (e: FormEvent<HTMLInputElement>) => {
+		setToDate(e.currentTarget.value);
+	};
+
 	const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 		const payload: ExhibitionPayload = {
@@ -44,6 +53,8 @@ export const CreateExhibitionPage = () => {
 			title,
 			description,
 			bg_colour: colour,
+			from_date: fromDate,
+			to_date: toDate
 		};
 
 		postExhibition(payload).then(({ exhibition }) => {
@@ -81,6 +92,22 @@ export const CreateExhibitionPage = () => {
 							id="description"
 							onChange={handleDescriptionChange}
 							value={description}
+						/>
+						<label htmlFor="from-date">From date</label>
+						<input
+							type="date"
+							id="from-date"
+							onChange={handleFromDateChange}
+							value={fromDate}
+							required
+						/>
+						<label htmlFor="to-date">To date</label>
+						<input
+							type="date"
+							id="to-date"
+							onChange={handleToDateChange}
+							value={toDate}
+							required
 						/>
 					</div>
 					<HexColorPicker color={colour} onChange={setColour} />

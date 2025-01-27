@@ -6,7 +6,7 @@ export const UserContext = createContext<UserContextInterface | undefined>(
 );
 
 export const UserIdProvider = ({ children }: any) => {
-	const [user, setUser] = useState({ user_id: 1, username: "juzz0604" });
+	const [user, setUser] = useState({ user_id: 2, username: "eleaha2021" });
 	return (
 		<UserContext.Provider value={{ user, setUser }}>
 			{children}
